@@ -1,6 +1,6 @@
 require 'account_controller_patch'
 
-Redmine::Plugin.register :recaptcha do
+Redmine::Plugin.register :redmine_recaptcha do
   name 'Recaptcha plugin'
   author 'Christoph Dwertmann'
   description 'Adds a recaptcha to the account registration page'
