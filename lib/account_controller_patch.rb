@@ -3,13 +3,14 @@ module AccountControllerRecaptchaPatch
     base.class_eval do
       def register
         (redirect_to(home_url); return) unless Setting.self_registration? || session[:auth_source_registration]
-        if request.get?
+        if !request.post?
           session[:auth_source_registration] = nil
           @user = User.new(:language => current_language.to_s)
         else
           user_params = params[:user] || {}
           @user = User.new
           @user.safe_attributes = user_params
+          @user.pref.attributes = params[:pref] if params[:pref]
           @user.admin = false
           @user.register
           if session[:auth_source_registration]
